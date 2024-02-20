@@ -1,33 +1,46 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
+import { useState, useEffect } from 'react'
+import todoodleLogo from './assets/todologo.svg'
 import './App.css'
 
 function App() {
+  console.log('rerender')
   const [count, setCount] = useState(0)
+  const [todoodles, setTodoodles] = useState([])
+
+
+  //use effect will let us define a function that doesnt run every time App() does
+  useEffect(() => {
+    console.log('get data')
+    fetch('http://localhost:3000/todos').then((resp) => {
+      resp.json().then((todoodles) => {
+        console.log(todoodles)
+        setTodoodles(todoodles)
+      })
+    })
+  }, [])
 
   return (
     <>
-      <div>
-        <a href="https://vitejs.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1 className='header'>Todoodle</h1>
+      <img src={todoodleLogo} 
+        height = "200"
+        width = "200" />
+
       <div className="card">
         <button className='counter' onClick={() => setCount((count) => count + 1)}>
           count is {count}
         </button>
-        <p>
-          Edit <code>src/App.jsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
+        </div>
+    
+      {
+        todoodles.length && todoodles.map(todoodle => {
+          return (
+            <div key={todoodle.title}>
+            <h4>{ todoodle.title }</h4>
+            <p>{ todoodle.bodyText }</p>
+          </div>
+          )
+        })
+      }
     </>
   )
 }

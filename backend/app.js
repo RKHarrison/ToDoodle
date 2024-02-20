@@ -19,7 +19,8 @@ const todos = [
 ]
 
 // This allows you to access endpoints from another server
-todoodle.use(cors)
+todoodle.use(cors())
+todoodle.use(express.json())
 
 todoodle.get('/todos', (_, res) => {
     res.send(todos)
