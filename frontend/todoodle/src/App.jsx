@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react'
-import todoodleLogo from './assets/todologo.svg'
+import todoodleLogo from './assets/toDoodleLogo.svg'
 import './App.css'
 
 function App() {
@@ -22,8 +22,8 @@ function App() {
   return (
     <>
       <img src={todoodleLogo} 
-        height = "200"
-        width = "200" />
+        height = "300"
+        width = "300" />
 
       <div className="card">
         <button className='counter' onClick={() => setCount((count) => count + 1)}>
