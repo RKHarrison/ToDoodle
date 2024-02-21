@@ -7,7 +7,7 @@
 
 .logo {
   height: 6em;
-  padding: 1.5em;
+  padding: 1em;
   will-change: filter;
   transition: filter 300ms;
 }
@@ -26,7 +26,7 @@
   }
 
   to {
-    transform: rotate(360deg);
+    transform: rotate(180deg);
   }
 }
 

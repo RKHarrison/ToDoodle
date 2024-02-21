@@ -4,43 +4,47 @@ import './App.css'
 
 function App() {
   console.log('rerender')
-  const [count, setCount] = useState(0)
   const [todoodles, setTodoodles] = useState([])
+  const [inputValue, setInputValue] = useState('')
 
+  function handleChnge(e){
+    setInputValue(e.target.value)}
 
-  //use effect will let us define a function that doesnt run every time App() does
-  useEffect(() => {
-    console.log('get data')
-    fetch('http://localhost:3000/todos').then((resp) => {
-      resp.json().then((todoodles) => {
-        console.log(todoodles)
-        setTodoodles(todoodles)
-      })
-    })
-  }, [])
+  function handleSubmit(e){
+    e.preventDefault()
+    setTodoodles([...todoodles, inputValue])
+    setInputValue('')
+  }
+
+  function handleDelete(index){
+    console.log(index)
+    const newTodoodles = [...todoodles]
+    newTodoodles.splice(index, 1)
+    setTodoodles(newTodoodles)
+
+  }
 
   return (
     <>
       <img src={todoodleLogo} 
-        height = "300"
-        width = "300" />
+        height = "400"
+        width = "400" />
 
-      <div className="card">
-        <button className='counter' onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        </div>
-    
-      {
-        todoodles.length && todoodles.map(todoodle => {
-          return (
-            <div key={todoodle.title}>
-            <h4>{ todoodle.title }</h4>
-            <p>{ todoodle.bodyText }</p>
-          </div>
-          )
-        })
-      }
+      <div>
+        <form>
+          <input type="text" value={inputValue} onChange={handleChnge}/>
+          <div></div>
+          <button onClick={handleSubmit}> Add ToDoodle </button>
+        </form>
+        
+        <ul>
+          {todoodles.map((todoodle, index) =>
+            <li key={index}>{todoodle}
+            <button onClick={handleDelete}> Complete </button>
+            </li>
+            )}
+        </ul>
+      </div>
     </>
   )
 }
