@@ -39,7 +39,7 @@ function App() {
         <ul>
           {todoodles.map((todoodle, index) =>
             <li key={index}>{todoodle}
-            <button onClick={(() => handleDelete(index))}> Complete </button>
+            <button onClick={() => handleDelete(index)}> Complete </button>
             </li>
             )}
         </ul>
