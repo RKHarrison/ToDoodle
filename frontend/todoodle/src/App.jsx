@@ -17,8 +17,8 @@ function App() {
   }
 
   function handleDelete(index){
-    console.log(index)
     const newTodoodles = [...todoodles]
+    console.log(newTodoodles[index])
     newTodoodles.splice(index, 1)
     setTodoodles(newTodoodles)
 
@@ -36,11 +36,10 @@ function App() {
           <div></div>
           <button onClick={handleSubmit}> Add ToDoodle </button>
         </form>
-        
         <ul>
           {todoodles.map((todoodle, index) =>
             <li key={index}>{todoodle}
-            <button onClick={handleDelete}> Complete </button>
+            <button onClick={(() => handleDelete(index))}> Complete </button>
             </li>
             )}
         </ul>
